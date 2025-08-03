@@ -1,8 +1,7 @@
+/* index.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Your custom base styles */
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -31,7 +30,8 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  flex-direction: column;
+  align-items: center;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -49,6 +49,7 @@ button {
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
+  color: white;
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -60,8 +61,6 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-/* Light mode overrides */
-
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -72,5 +71,6 @@ button:focus-visible {
   }
   button {
     background-color: #f9f9f9;
+    color: #1a1a1a;
   }
 }
