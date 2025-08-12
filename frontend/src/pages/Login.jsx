@@ -8,8 +8,11 @@ import {
   Typography,
   Paper,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom"; // ✅ Import navigation hook
 
 export default function Login() {
+  const navigate = useNavigate(); // ✅ Create navigation function
+
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -43,7 +46,8 @@ export default function Login() {
     setError("");
     console.log("Login Data:", formData);
 
-    // Later: Call backend API here for authentication
+    // ✅ Redirect to home page
+    navigate("/homepage");
   };
 
   return (
