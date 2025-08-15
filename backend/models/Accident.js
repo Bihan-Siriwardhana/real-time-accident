@@ -5,9 +5,9 @@ const accidentSchema = new mongoose.Schema({
   location: { type: String, required: true },
   severity_level: { type: String, enum: ["Low", "Medium", "High", "Critical"], required: true },
   description: { type: String },
-  deaths: { type: Number },
-  patients_in_hospital: { type: Number },
-  total_people: { type: Number }, // ✅ NEW FIELD
+  deaths: { type: Number, default: 0 },
+  patients_in_hospital: { type: Number, default: 0 },
+  total_people: { type: Number, default: 0 },
   hospital_name: { type: String },
   latitude: { type: Number },
   longitude: { type: Number },
