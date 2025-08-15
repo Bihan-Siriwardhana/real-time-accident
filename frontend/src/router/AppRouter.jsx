@@ -9,6 +9,7 @@ import Login from "../pages/Login";
 import HomePage from "../components/HomePage";
 import AddAccident from "../pages/AddAccident";
 import AccidentEditPage from "../components/EditAccident";
+import AddAccidentForm from "../pages/AddAccidentForm";
 
 const AppRouter = () => {
   return (
@@ -21,6 +22,7 @@ const AppRouter = () => {
       <Route path="/homepage" element={<HomePage />} />
       <Route path="/addaccident" element={<AddAccident />} />
       <Route path="/editaccident/:id" element={<AccidentEditPage />} />
+      <Route path="/add-accident" element={<AddAccidentForm />} />
     </Routes>
   );
 };
