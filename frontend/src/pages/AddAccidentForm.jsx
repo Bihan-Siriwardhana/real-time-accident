@@ -7,6 +7,7 @@ import {
   Typography,
   Box,
   Paper,
+  MenuItem,
 } from "@mui/material";
 
 const API_URL = "http://localhost:5000/api/accidents";
@@ -120,14 +121,24 @@ export default function AddAccidentForm() {
             value={formData.location}
             onChange={handleChange}
           />
+
+          {/* ✅ Severity dropdown */}
           <TextField
+            select
             label="Severity Level"
             name="severity_level"
             fullWidth
             margin="normal"
             value={formData.severity_level}
             onChange={handleChange}
-          />
+            required
+          >
+            <MenuItem value="Low">Low</MenuItem>
+            <MenuItem value="Medium">Medium</MenuItem>
+            <MenuItem value="High">High</MenuItem>
+            <MenuItem value="Critical">Critical</MenuItem>
+          </TextField>
+
           <TextField
             label="Description"
             name="description"

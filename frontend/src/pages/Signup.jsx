@@ -8,6 +8,7 @@ import {
   Typography,
   Paper,
 } from "@mui/material";
+import axios from "axios";
 
 export default function Signup() {
   const [formData, setFormData] = useState({
@@ -19,8 +20,8 @@ export default function Signup() {
   });
 
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
-  // Dropdown role options
   const roles = [
     { value: "Hospital", label: "🏥 Hospital" },
     { value: "Police", label: "👮 Police" },
@@ -35,7 +36,7 @@ export default function Signup() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (formData.password !== formData.confirmPassword) {
@@ -43,10 +44,34 @@ export default function Signup() {
       return;
     }
 
-    setError("");
-    console.log("User Data:", formData);
+    try {
+      setError("");
+      setSuccess("");
 
-    // Later you can call your backend API here
+      const res = await axios.post("http://localhost:5000/api/auth/signup", {
+        username: formData.username,
+        email: formData.email,
+        password: formData.password,
+        confirmPassword: formData.confirmPassword,
+        role: formData.role,
+      });
+
+      setSuccess("Signup successful! You can now log in.");
+      console.log("Response:", res.data);
+
+      setFormData({
+        username: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        role: "",
+      });
+    } catch (err) {
+      console.error("Signup Error:", err);
+      setError(
+        err.response?.data?.message || "Signup failed. Please try again."
+      );
+    }
   };
 
   return (
@@ -103,8 +128,6 @@ export default function Signup() {
             sx={{ mb: 2 }}
             required
           />
-
-          {/* Dropdown for Role */}
           <TextField
             select
             fullWidth
@@ -125,6 +148,11 @@ export default function Signup() {
           {error && (
             <Typography color="error" sx={{ mb: 2 }}>
               {error}
+            </Typography>
+          )}
+          {success && (
+            <Typography color="primary" sx={{ mb: 2 }}>
+              {success}
             </Typography>
           )}
 
