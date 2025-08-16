@@ -1,99 +1,72 @@
-import React, { useState, useEffect } from "react";
-import {
-  Box,
-  Card,
-  CardContent,
-  Typography,
-  Button,
-  Grid,
-} from "@mui/material";
-import { useNavigate } from "react-router-dom";
+// src/pages/HomePage.jsx
+import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Box, Typography, Card, CardContent, Grid } from "@mui/material";
 
-const HomePage = () => {
-  const navigate = useNavigate();
+export default function HomePage() {
   const [accidents, setAccidents] = useState([]);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/accidents")
-      .then((res) => {
-        setAccidents(res.data);
-      })
-      .catch((err) => {
+    const fetchAccidents = async () => {
+      try {
+        const token = localStorage.getItem("token"); // JWT token if required
+        const res = await axios.get("http://localhost:5000/api/accidents", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        console.log("API Response:", res.data);
+
+        // Handle cases where the API returns an object with array inside 'data'
+        const accidentArray = Array.isArray(res.data)
+          ? res.data
+          : res.data.data;
+
+        setAccidents(accidentArray || []);
+      } catch (err) {
         console.error("Error fetching accidents:", err);
-      });
+        setError("Failed to load accident data");
+      }
+    };
+
+    fetchAccidents();
   }, []);
 
-  const handleEdit = (id) => {
-    navigate(`/editaccident/${id}`);
-  };
-
-  const handleAdd = () => {
-    navigate("/addaccident");
-  };
-
   return (
-    <Box p={3}>
-      {/* Add Accident Button */}
-      <Box mb={3} display="flex" justifyContent="flex-end">
-        <Button variant="contained" color="primary" onClick={handleAdd}>
-          Add New Accident
-        </Button>
-      </Box>
+    <Box sx={{ mt: 5, px: 3 }}>
+      <Typography variant="h4" sx={{ mb: 4, fontWeight: "bold" }}>
+        Accident Reports
+      </Typography>
 
-      {/* Accident Cards */}
+      {error && (
+        <Typography color="error" sx={{ mb: 2 }}>
+          {error}
+        </Typography>
+      )}
+
       <Grid container spacing={3}>
-        {accidents.map((accident) => (
-          <Grid item xs={12} sm={6} md={4} key={accident._id}>
-            <Card>
-              {/* Display photo if available */}
-              {accident.image_url && (
-                <Box
-                  component="img"
-                  src={accident.image_url}
-                  alt={`Accident at ${accident.location}`}
-                  sx={{
-                    width: "100%",
-                    height: 180,
-                    objectFit: "cover",
-                    borderTopLeftRadius: 4,
-                    borderTopRightRadius: 4,
-                  }}
-                />
-              )}
+        {accidents.length === 0 && !error && (
+          <Typography>No accidents found.</Typography>
+        )}
 
+        {accidents.map((accident, index) => (
+          <Grid item xs={12} sm={6} md={4} key={index}>
+            <Card elevation={3}>
               <CardContent>
-                <Typography variant="h6" gutterBottom>
-                  📍 {accident.location}
-                </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  Date:{" "}
-                  {accident.accident_date
-                    ? new Date(accident.accident_date).toLocaleString()
-                    : "N/A"}
+                <Typography variant="h6" sx={{ fontWeight: "bold", mb: 1 }}>
+                  Location: {accident.location}
                 </Typography>
                 <Typography variant="body2">
-                  Total People: {accident.total_people || 0}
+                  Date: {accident.accident_date}
                 </Typography>
                 <Typography variant="body2">
-                  Admitted: {accident.patients_in_hospital || 0}
+                  Severity: {accident.severity_level}
                 </Typography>
-                <Typography variant="body2">
-                  Deaths: {accident.deaths || 0}
-                </Typography>
-                <Typography variant="body2">
-                  Hospital: {accident.hospital_name || "N/A"}
-                </Typography>
-                <Box mt={2}>
-                  <Button
-                    variant="outlined"
-                    color="secondary"
-                    onClick={() => handleEdit(accident._id)}
-                  >
-                    Edit
-                  </Button>
-                </Box>
+                {accident.description && (
+                  <Typography variant="body2" sx={{ mt: 1 }}>
+                    {accident.description}
+                  </Typography>
+                )}
               </CardContent>
             </Card>
           </Grid>
@@ -101,6 +74,4 @@ const HomePage = () => {
       </Grid>
     </Box>
   );
-};
-
-export default HomePage;
+}
