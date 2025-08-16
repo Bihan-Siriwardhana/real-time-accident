@@ -39,12 +39,12 @@ exports.signup = async (req, res) => {
 // Login
 exports.login = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { username, password } = req.body;
 
-    if (!email || !password)
+    if (!username || !password)
       return errorResponse(res, "Email and password are required", 400);
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ username });
     if (!user) return errorResponse(res, "Invalid credentials", 401);
 
     const isMatch = await user.matchPassword(password);
