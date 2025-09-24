@@ -10,6 +10,8 @@ import HomePage from "../components/HomePage";
 import AddAccident from "../pages/AddAccident";
 import AccidentEditPage from "../components/EditAccident";
 import AddAccidentForm from "../pages/AddAccidentForm";
+import HospitalDashboard from "../pages/HospitalDashboard";
+import HospitalAccidentManage from "../pages/HospitalAccidentManage";
 
 const AppRouter = () => {
   return (
@@ -23,6 +25,8 @@ const AppRouter = () => {
       <Route path="/addaccident" element={<AddAccident />} />
       <Route path="/editaccident/:id" element={<AccidentEditPage />} />
       <Route path="/add-accident" element={<AddAccidentForm />} />
+      <Route path="/hospital/dashboard" element={<HospitalDashboard />} />
+      <Route path="/hospital/accident/:id" element={<HospitalAccidentManage />} />
     </Routes>
   );
 };

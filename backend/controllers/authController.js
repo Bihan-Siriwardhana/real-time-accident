@@ -4,7 +4,20 @@ const { successResponse, errorResponse } = require("../utils/responseHandler");
 
 // Generate JWT
 const generateToken = (id, role) => {
-  return jwt.sign({ id, role }, process.env.JWT_SECRET || "secretkey", { expiresIn: "7d" });
+  if (!process.env.JWT_SECRET) {
+    throw new Error("JWT_SECRET environment variable is required");
+  }
+  return jwt.sign({ id, role }, process.env.JWT_SECRET, { expiresIn: "7d" });
+};
+
+// Validate email format
+const isValidEmail = (email) => {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+};
+
+// Validate password strength
+const isValidPassword = (password) => {
+  return password.length >= 8 && /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(password);
 };
 
 // Signup
@@ -14,6 +27,12 @@ exports.signup = async (req, res) => {
 
     if (!username || !email || !password || !confirmPassword || !role)
       return errorResponse(res, "All fields are required", 400);
+
+    if (!isValidEmail(email))
+      return errorResponse(res, "Please provide a valid email address", 400);
+
+    if (!isValidPassword(password))
+      return errorResponse(res, "Password must be at least 8 characters with uppercase, lowercase, and number", 400);
 
     if (password !== confirmPassword)
       return errorResponse(res, "Passwords do not match", 400);
@@ -42,7 +61,7 @@ exports.login = async (req, res) => {
     const { username, password } = req.body;
 
     if (!username || !password)
-      return errorResponse(res, "Email and password are required", 400);
+      return errorResponse(res, "Username and password are required", 400);
 
     const user = await User.findOne({ username });
     if (!user) return errorResponse(res, "Invalid credentials", 401);

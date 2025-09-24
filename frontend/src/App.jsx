@@ -1,35 +1,41 @@
-// App.jsx
 import React from "react";
-import { Container, Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import { motion } from "framer-motion";
 import Navbar from "./components/Navbar";
 import AppRouter from "./router/AppRouter";
 
 const App = () => {
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        minHeight: "100vh",
-        bgcolor: "#fefefe",
-      }}
-    >
+    <Box sx={{ minHeight: "100vh" }}>
       <Navbar />
-
-      {/* Main Content Area */}
-      <Box component="main" sx={{ flexGrow: 1, py: 3 }}>
-        <Container maxWidth="lg">
-          <AppRouter />
-        </Container>
+      <Box component="main">
+        <AppRouter />
       </Box>
-
-      {/* Optional Footer */}
-      <Box
-        component="footer"
-        sx={{ py: 2, textAlign: "center", bgcolor: "#fafafa" }}
+      <motion.footer
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1 }}
       >
-        <small>&copy; {new Date().getFullYear()} Accident Alert System</small>
-      </Box>
+        <Box
+          sx={{ 
+            py: 4, 
+            textAlign: "center", 
+            background: 'rgba(255, 255, 255, 0.95)',
+            backdropFilter: 'blur(20px)',
+            borderTop: '1px solid rgba(255, 255, 255, 0.2)'
+          }}
+        >
+          <Typography 
+            variant="body1" 
+            sx={{ 
+              color: '#64748b',
+              fontWeight: 600
+            }}
+          >
+            © {new Date().getFullYear()} RescueNet - Advanced Emergency Response Platform
+          </Typography>
+        </Box>
+      </motion.footer>
     </Box>
   );
 };

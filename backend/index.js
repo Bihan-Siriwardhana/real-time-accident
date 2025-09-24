@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const connectDB = require("./config/db");
 
 // Routes
@@ -18,6 +19,7 @@ connectDB();
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 
 // Register API routes
 app.use("/api/accidents", accidentRoutes);

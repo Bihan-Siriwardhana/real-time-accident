@@ -15,10 +15,11 @@ import {
   Lock as LockIcon,
   Login as LoginIcon
 } from "@mui/icons-material";
-import { Link as RouterLink } from "react-router-dom"; // React Router Link
+import { Link as RouterLink, useNavigate } from "react-router-dom"; // React Router Link
 import axios from "axios";
 
 export default function Login() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -49,9 +50,19 @@ export default function Login() {
 
       localStorage.setItem("token", res.data.data.token);
       localStorage.setItem("username", formData.username);
+      localStorage.setItem("role", res.data.data.role);
 
       setError("");
       setSuccess(true);
+      
+      // Navigate based on role
+      setTimeout(() => {
+        if (res.data.data.role === 'hospital') {
+          navigate('/hospital/dashboard');
+        } else {
+          navigate('/dashboard');
+        }
+      }, 1000);
     } catch (err) {
       setError(
         err.response?.data?.message || "Invalid credentials, please try again"
@@ -67,7 +78,7 @@ export default function Login() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        background: "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)",
+        background: "linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)",
         p: 2
       }}
     >
@@ -85,28 +96,37 @@ export default function Login() {
           }}
         >
           <Box textAlign="center" mb={3}>
-            <LoginIcon 
-              color="primary" 
+            <Box 
               sx={{ 
-                fontSize: 60, 
-                mb: 1,
-                backgroundColor: '#e3f2fd',
+                width: 80,
+                height: 80,
                 borderRadius: '50%',
-                p: 1
-              }} 
-            />
+                background: 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                mx: 'auto',
+                mb: 2,
+                boxShadow: '0 8px 32px rgba(220, 38, 38, 0.3)'
+              }}
+            >
+              <Typography sx={{ fontSize: '2rem' }}>🚨</Typography>
+            </Box>
             <Typography 
               variant="h4" 
               sx={{ 
-                fontWeight: "bold", 
-                color: "#1976d2",
+                fontWeight: 700, 
+                background: 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
                 mb: 1
               }}
             >
-              Welcome Back
+              Emergency Access
             </Typography>
-            <Typography variant="body2" color="textSecondary">
-              Sign in to access your emergency dashboard
+            <Typography variant="body1" sx={{ color: '#64748b', fontWeight: 500 }}>
+              Secure login to emergency response system
             </Typography>
           </Box>
 
@@ -155,7 +175,7 @@ export default function Login() {
                 <RouterLink
                   to="/forgot-password"
                   style={{
-                    color: '#64b5f6', // light blue
+                    color: '#dc2626',
                     textDecoration: 'none',
                     fontWeight: 500,
                     fontSize: 14,
@@ -211,7 +231,7 @@ export default function Login() {
                 borderRadius: 50,
                 fontWeight: 'bold',
                 fontSize: 16,
-                background: 'linear-gradient(135deg, #1976d2 0%, #0d47a1 100%)',
+                background: 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)',
                 '&:hover': {
                   transform: 'translateY(-2px)',
                   boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
@@ -230,7 +250,7 @@ export default function Login() {
               <RouterLink
                 to="/signup"
                 style={{
-                  color: '#64b5f6', // light blue
+                  color: '#dc2626',
                   textDecoration: 'none',
                   fontWeight: 600,
                   marginLeft: 4,
