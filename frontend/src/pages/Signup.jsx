@@ -62,6 +62,7 @@ export default function Signup() {
         username: formData.username,
         email: formData.email,
         password: formData.password,
+        confirmPassword: formData.confirmPassword,
         role: formData.role,
       });
       setSuccess("Account created successfully! Redirecting to login...");
@@ -87,32 +88,48 @@ export default function Signup() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        background: "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)",
+        background: "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)",
         p: 2
       }}
     >
       <Fade in={true} timeout={500}>
         <Paper
-          elevation={10}
+          elevation={0}
           sx={{
             p: 4,
             width: "100%",
             maxWidth: 450,
             borderRadius: 4,
-            boxShadow: "0 8px 32px rgba(31, 38, 135, 0.37)",
-            backdropFilter: "blur(4px)",
-            border: "1px solid rgba(255, 255, 255, 0.18)"
+            background: "linear-gradient(145deg, #1e293b 0%, #334155 100%)",
+            border: "2px solid rgba(139, 92, 246, 0.3)",
+            boxShadow: "0 20px 40px rgba(0, 0, 0, 0.3)"
           }}
         >
           <Box textAlign="center" mb={3}>
+            <Box 
+              sx={{ 
+                width: 80,
+                height: 80,
+                borderRadius: '50%',
+                background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                mx: 'auto',
+                mb: 2,
+                boxShadow: '0 8px 32px rgba(16, 185, 129, 0.4)'
+              }}
+            >
+              <Typography sx={{ fontSize: '2rem' }}>🚑</Typography>
+            </Box>
             <Typography 
               variant="h4" 
-              sx={{ fontWeight: "bold", color: "#1976d2", mb: 1 }}
+              sx={{ fontWeight: 800, color: "white", mb: 1 }}
             >
-              Create Account
+              Join RescueNet
             </Typography>
-            <Typography variant="body2" color="textSecondary">
-              Join our emergency response network
+            <Typography variant="body1" sx={{ color: '#94a3b8', fontWeight: 500 }}>
+              Emergency response network registration
             </Typography>
           </Box>
 
@@ -123,12 +140,22 @@ export default function Signup() {
               name="username"
               value={formData.username}
               onChange={handleChange}
-              sx={{ mb: 2 }}
+              sx={{ 
+                mb: 2,
+                '& .MuiOutlinedInput-root': {
+                  backgroundColor: 'rgba(15, 23, 42, 0.8)',
+                  '& fieldset': { borderColor: 'rgba(148, 163, 184, 0.3)' },
+                  '&:hover fieldset': { borderColor: '#8b5cf6' },
+                  '&.Mui-focused fieldset': { borderColor: '#8b5cf6' }
+                },
+                '& .MuiInputLabel-root': { color: '#94a3b8' },
+                '& .MuiInputBase-input': { color: 'white' }
+              }}
               required
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <PersonIcon color="primary" />
+                    <PersonIcon sx={{ color: '#8b5cf6' }} />
                   </InputAdornment>
                 ),
               }}
@@ -143,12 +170,22 @@ export default function Signup() {
               type="email"
               value={formData.email}
               onChange={handleChange}
-              sx={{ mb: 2 }}
+              sx={{ 
+                mb: 2,
+                '& .MuiOutlinedInput-root': {
+                  backgroundColor: 'rgba(15, 23, 42, 0.8)',
+                  '& fieldset': { borderColor: 'rgba(148, 163, 184, 0.3)' },
+                  '&:hover fieldset': { borderColor: '#8b5cf6' },
+                  '&.Mui-focused fieldset': { borderColor: '#8b5cf6' }
+                },
+                '& .MuiInputLabel-root': { color: '#94a3b8' },
+                '& .MuiInputBase-input': { color: 'white' }
+              }}
               required
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <EmailIcon color="primary" />
+                    <EmailIcon sx={{ color: '#8b5cf6' }} />
                   </InputAdornment>
                 ),
               }}
@@ -165,12 +202,22 @@ export default function Signup() {
                   type="password"
                   value={formData.password}
                   onChange={handleChange}
-                  sx={{ mb: 2 }}
+                  sx={{ 
+                    mb: 2,
+                    '& .MuiOutlinedInput-root': {
+                      backgroundColor: 'rgba(15, 23, 42, 0.8)',
+                      '& fieldset': { borderColor: 'rgba(148, 163, 184, 0.3)' },
+                      '&:hover fieldset': { borderColor: '#8b5cf6' },
+                      '&.Mui-focused fieldset': { borderColor: '#8b5cf6' }
+                    },
+                    '& .MuiInputLabel-root': { color: '#94a3b8' },
+                    '& .MuiInputBase-input': { color: 'white' }
+                  }}
                   required
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <LockIcon color="primary" />
+                        <LockIcon sx={{ color: '#8b5cf6' }} />
                       </InputAdornment>
                     ),
                   }}
@@ -186,12 +233,22 @@ export default function Signup() {
                   type="password"
                   value={formData.confirmPassword}
                   onChange={handleChange}
-                  sx={{ mb: 2 }}
+                  sx={{ 
+                    mb: 2,
+                    '& .MuiOutlinedInput-root': {
+                      backgroundColor: 'rgba(15, 23, 42, 0.8)',
+                      '& fieldset': { borderColor: 'rgba(148, 163, 184, 0.3)' },
+                      '&:hover fieldset': { borderColor: '#8b5cf6' },
+                      '&.Mui-focused fieldset': { borderColor: '#8b5cf6' }
+                    },
+                    '& .MuiInputLabel-root': { color: '#94a3b8' },
+                    '& .MuiInputBase-input': { color: 'white' }
+                  }}
                   required
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
-                        <LockIcon color="primary" />
+                        <LockIcon sx={{ color: '#8b5cf6' }} />
                       </InputAdornment>
                     ),
                   }}
@@ -208,12 +265,22 @@ export default function Signup() {
               name="role"
               value={formData.role}
               onChange={handleChange}
-              sx={{ mb: 3 }}
+              sx={{ 
+                mb: 3,
+                '& .MuiOutlinedInput-root': {
+                  backgroundColor: 'rgba(15, 23, 42, 0.8)',
+                  '& fieldset': { borderColor: 'rgba(148, 163, 184, 0.3)' },
+                  '&:hover fieldset': { borderColor: '#8b5cf6' },
+                  '&.Mui-focused fieldset': { borderColor: '#8b5cf6' }
+                },
+                '& .MuiInputLabel-root': { color: '#94a3b8' },
+                '& .MuiInputBase-input': { color: 'white' }
+              }}
               required
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <RoleIcon color="primary" />
+                    <RoleIcon sx={{ color: '#8b5cf6' }} />
                   </InputAdornment>
                 ),
               }}
@@ -256,38 +323,44 @@ export default function Signup() {
               variant="contained"
               size="large"
               sx={{
-                py: 1.5,
+                py: 2,
                 mt: 1,
-                borderRadius: 50,
-                fontWeight: 'bold',
+                borderRadius: 3,
+                fontWeight: 700,
                 fontSize: 16,
-                background: 'linear-gradient(135deg, #1976d2 0%, #0d47a1 100%)',
+                background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+                border: '2px solid rgba(16, 185, 129, 0.3)',
                 '&:hover': {
-                  transform: 'translateY(-2px)',
-                  boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
+                  transform: 'translateY(-3px)',
+                  boxShadow: '0 12px 30px rgba(16, 185, 129, 0.4)',
+                  borderColor: '#10b981'
                 },
                 transition: 'all 0.3s ease'
               }}
             >
-              SIGN UP
+              🚀 CREATE ACCOUNT
             </Button>
           </form>
 
           <Box textAlign="center" mt={3}>
-            <Typography variant="body2" color="textSecondary">
+            <Typography variant="body2" sx={{ color: '#94a3b8' }}>
               Already have an account?{' '}
               <Button
                 component={RouterLink}
                 to="/login"
                 variant="text"
-                color="primary"
                 sx={{
                   ml: 1,
                   textTransform: "none",
                   fontWeight: 600,
+                  color: '#8b5cf6',
+                  '&:hover': {
+                    color: '#a78bfa',
+                    background: 'rgba(139, 92, 246, 0.1)'
+                  }
                 }}
               >
-                Log In
+                Sign In
               </Button>
             </Typography>
           </Box>

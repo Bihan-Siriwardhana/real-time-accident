@@ -163,32 +163,43 @@ export default function Dashboard() {
   };
 
   return (
-    <Box sx={{ minHeight: '100vh', py: 4 }}>
-      <Box sx={{ maxWidth: '1200px', mx: 'auto', px: 4 }}>
-        <motion.div
-          initial={{ opacity: 0, y: -30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <Box sx={{ textAlign: 'center', mb: 6 }}>
-            <Typography 
-              variant="h2" 
-              sx={{ 
-                fontWeight: 800,
-                background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                mb: 2
-              }}
-            >
-              📊 Analytics Dashboard
-            </Typography>
-            <Typography variant="h6" sx={{ color: '#64748b', fontWeight: 500 }}>
-              Comprehensive incident analysis and management
-            </Typography>
-          </Box>
-        </motion.div>
+    <Box sx={{ minHeight: '100vh', background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)' }}>
+      <Box sx={{ py: 6 }}>
+        <Box sx={{ maxWidth: '1400px', mx: 'auto', px: 4 }}>
+          <motion.div
+            initial={{ opacity: 0, y: -30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <Box sx={{ mb: 6 }}>
+              <Typography 
+                variant="h3" 
+                sx={{ 
+                  fontWeight: 800,
+                  color: 'white',
+                  mb: 1,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 2
+                }}
+              >
+                <Box 
+                  sx={{ 
+                    background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+                    borderRadius: '16px',
+                    p: 2,
+                    fontSize: '2rem'
+                  }}
+                >
+                  📊
+                </Box>
+                Emergency Analytics
+              </Typography>
+              <Typography variant="h6" sx={{ color: '#94a3b8', fontWeight: 500, ml: 8 }}>
+                Real-time incident monitoring and response coordination
+              </Typography>
+            </Box>
+          </motion.div>
       
         <Grid container spacing={4}>
         {accidents.map((accident) => {
@@ -208,21 +219,26 @@ export default function Dashboard() {
                 whileHover={{ y: -8 }}
               >
                 <Card 
-                  className="card-modern"
                   sx={{ 
                     height: '100%',
-                    background: 'rgba(255, 255, 255, 0.9)',
-                    backdropFilter: 'blur(20px)',
-                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    background: 'linear-gradient(145deg, #1e293b 0%, #334155 100%)',
+                    border: `2px solid ${getSeverityColor(accident.severity)}40`,
+                    borderRadius: '20px',
                     position: 'relative',
                     overflow: 'hidden',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      transform: 'translateY(-8px)',
+                      borderColor: getSeverityColor(accident.severity),
+                      boxShadow: `0 20px 40px ${getSeverityColor(accident.severity)}30`
+                    },
                     '&::before': {
                       content: '""',
                       position: 'absolute',
                       top: 0,
                       left: 0,
                       right: 0,
-                      height: '4px',
+                      height: '6px',
                       background: `linear-gradient(90deg, ${getSeverityColor(accident.severity)} 0%, ${getSeverityColor(accident.severity)}80 100%)`
                     }
                   }}>
@@ -234,7 +250,7 @@ export default function Dashboard() {
                           variant="h6" 
                           sx={{ 
                             fontWeight: 700,
-                            color: '#1e293b',
+                            color: 'white',
                             mb: 1,
                             display: 'flex',
                             alignItems: 'center',
@@ -243,7 +259,7 @@ export default function Dashboard() {
                         >
                           📍 {accident.location}
                         </Typography>
-                        <Typography variant="body2" sx={{ color: '#64748b', fontWeight: 500 }}>
+                        <Typography variant="body2" sx={{ color: '#94a3b8', fontWeight: 500 }}>
                           {new Date(accident.date).toLocaleDateString('en-US', {
                             year: 'numeric',
                             month: 'short',
@@ -260,7 +276,8 @@ export default function Dashboard() {
                           color: 'white',
                           fontWeight: 700,
                           fontSize: '12px',
-                          borderRadius: '8px'
+                          borderRadius: '12px',
+                          boxShadow: `0 4px 12px ${getSeverityColor(accident.severity)}40`
                         }}
                       />
                     </Box>
@@ -277,16 +294,17 @@ export default function Dashboard() {
                         <Box 
                           sx={{ 
                             textAlign: 'center',
-                            p: 2,
-                            background: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)',
-                            borderRadius: '12px',
-                            border: '1px solid #bae6fd'
+                            p: 3,
+                            background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+                            borderRadius: '16px',
+                            border: '2px solid #06b6d4',
+                            boxShadow: '0 8px 32px rgba(6, 182, 212, 0.2)'
                           }}
                         >
-                          <Typography variant="h6" sx={{ fontWeight: 700, color: '#0369a1' }}>
+                          <Typography variant="h5" sx={{ fontWeight: 800, color: '#06b6d4', mb: 0.5 }}>
                             {totalPeople}
                           </Typography>
-                          <Typography variant="caption" sx={{ color: '#0284c7', fontWeight: 600 }}>
+                          <Typography variant="body2" sx={{ color: '#94a3b8', fontWeight: 600 }}>
                             Total People
                           </Typography>
                         </Box>
@@ -294,16 +312,17 @@ export default function Dashboard() {
                         <Box 
                           sx={{ 
                             textAlign: 'center',
-                            p: 2,
-                            background: 'linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%)',
-                            borderRadius: '12px',
-                            border: '1px solid #bbf7d0'
+                            p: 3,
+                            background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+                            borderRadius: '16px',
+                            border: '2px solid #10b981',
+                            boxShadow: '0 8px 32px rgba(16, 185, 129, 0.2)'
                           }}
                         >
-                          <Typography variant="h6" sx={{ fontWeight: 700, color: '#16a34a' }}>
+                          <Typography variant="h5" sx={{ fontWeight: 800, color: '#10b981', mb: 0.5 }}>
                             {totalAdmitted}
                           </Typography>
-                          <Typography variant="caption" sx={{ color: '#15803d', fontWeight: 600 }}>
+                          <Typography variant="body2" sx={{ color: '#94a3b8', fontWeight: 600 }}>
                             Admitted
                           </Typography>
                         </Box>
@@ -311,16 +330,17 @@ export default function Dashboard() {
                         <Box 
                           sx={{ 
                             textAlign: 'center',
-                            p: 2,
-                            background: 'linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%)',
-                            borderRadius: '12px',
-                            border: '1px solid #fecaca'
+                            p: 3,
+                            background: 'linear-gradient(135deg, #0f172a 0%, #1e293b 100%)',
+                            borderRadius: '16px',
+                            border: '2px solid #ef4444',
+                            boxShadow: '0 8px 32px rgba(239, 68, 68, 0.2)'
                           }}
                         >
-                          <Typography variant="h6" sx={{ fontWeight: 700, color: '#dc2626' }}>
+                          <Typography variant="h5" sx={{ fontWeight: 800, color: '#ef4444', mb: 0.5 }}>
                             {totalDeaths}
                           </Typography>
-                          <Typography variant="caption" sx={{ color: '#b91c1c', fontWeight: 600 }}>
+                          <Typography variant="body2" sx={{ color: '#94a3b8', fontWeight: 600 }}>
                             Deceased
                           </Typography>
                         </Box>
@@ -329,7 +349,7 @@ export default function Dashboard() {
                     
                     {uniqueHospitals.length > 0 && (
                       <Box sx={{ mb: 3 }}>
-                        <Typography variant="subtitle2" sx={{ fontWeight: 600, color: '#475569', mb: 2 }}>
+                        <Typography variant="subtitle2" sx={{ fontWeight: 600, color: '#e2e8f0', mb: 2 }}>
                           🏥 Hospitals Involved:
                         </Typography>
                         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
@@ -340,13 +360,15 @@ export default function Dashboard() {
                               clickable
                               onClick={() => handleHospitalClick(hospital)}
                               sx={{
-                                background: 'linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)',
+                                background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
                                 color: 'white',
                                 fontWeight: 600,
                                 fontSize: '11px',
+                                border: '1px solid #f59e0b40',
                                 '&:hover': {
                                   transform: 'translateY(-2px)',
-                                  boxShadow: '0 4px 12px rgba(6, 182, 212, 0.4)'
+                                  boxShadow: '0 8px 20px rgba(245, 158, 11, 0.4)',
+                                  borderColor: '#f59e0b'
                                 },
                                 transition: 'all 0.3s ease'
                               }}
@@ -364,15 +386,18 @@ export default function Dashboard() {
                         })
                       }
                       sx={{
-                        borderRadius: '12px',
-                        py: 1.5,
-                        background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+                        borderRadius: '16px',
+                        py: 2,
+                        background: 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)',
                         color: 'white',
-                        fontWeight: 600,
+                        fontWeight: 700,
+                        fontSize: '1rem',
                         textTransform: 'none',
+                        border: '2px solid #8b5cf640',
                         '&:hover': {
-                          transform: 'translateY(-2px)',
-                          boxShadow: '0 8px 25px rgba(99, 102, 241, 0.4)'
+                          transform: 'translateY(-3px)',
+                          boxShadow: '0 12px 30px rgba(139, 92, 246, 0.4)',
+                          borderColor: '#8b5cf6'
                         },
                         transition: 'all 0.3s ease'
                       }}
@@ -386,7 +411,8 @@ export default function Dashboard() {
             </Grid>
           );
         })}
-        </Grid>
+          </Grid>
+        </Box>
       </Box>
 
       {/* Hospital Detail Dialog */}

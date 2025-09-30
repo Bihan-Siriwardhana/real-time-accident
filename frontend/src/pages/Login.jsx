@@ -78,21 +78,21 @@ export default function Login() {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        background: "linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)",
+        background: "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)",
         p: 2
       }}
     >
       <Fade in={true} timeout={500}>
         <Paper
-          elevation={10}
+          elevation={0}
           sx={{
             p: 4,
             width: "100%",
             maxWidth: 450,
             borderRadius: 4,
-            boxShadow: "0 8px 32px rgba(31, 38, 135, 0.37)",
-            backdropFilter: "blur(4px)",
-            border: "1px solid rgba(255, 255, 255, 0.18)"
+            background: "linear-gradient(145deg, #1e293b 0%, #334155 100%)",
+            border: "2px solid rgba(6, 182, 212, 0.3)",
+            boxShadow: "0 20px 40px rgba(0, 0, 0, 0.3)"
           }}
         >
           <Box textAlign="center" mb={3}>
@@ -101,32 +101,29 @@ export default function Login() {
                 width: 80,
                 height: 80,
                 borderRadius: '50%',
-                background: 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)',
+                background: 'linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 mx: 'auto',
                 mb: 2,
-                boxShadow: '0 8px 32px rgba(220, 38, 38, 0.3)'
+                boxShadow: '0 8px 32px rgba(6, 182, 212, 0.4)'
               }}
             >
-              <Typography sx={{ fontSize: '2rem' }}>🚨</Typography>
+              <Typography sx={{ fontSize: '2rem' }}>🚑</Typography>
             </Box>
             <Typography 
               variant="h4" 
               sx={{ 
-                fontWeight: 700, 
-                background: 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
+                fontWeight: 800,
+                color: 'white',
                 mb: 1
               }}
             >
-              Emergency Access
+              Welcome Back
             </Typography>
-            <Typography variant="body1" sx={{ color: '#64748b', fontWeight: 500 }}>
-              Secure login to emergency response system
+            <Typography variant="body1" sx={{ color: '#94a3b8', fontWeight: 500 }}>
+              Sign in to RescueNet dashboard
             </Typography>
           </Box>
 
@@ -137,12 +134,22 @@ export default function Login() {
               name="username"
               value={formData.username}
               onChange={handleChange}
-              sx={{ mb: 2.5 }}
+              sx={{ 
+                mb: 2.5,
+                '& .MuiOutlinedInput-root': {
+                  backgroundColor: 'rgba(15, 23, 42, 0.8)',
+                  '& fieldset': { borderColor: 'rgba(148, 163, 184, 0.3)' },
+                  '&:hover fieldset': { borderColor: '#06b6d4' },
+                  '&.Mui-focused fieldset': { borderColor: '#06b6d4' }
+                },
+                '& .MuiInputLabel-root': { color: '#94a3b8' },
+                '& .MuiInputBase-input': { color: 'white' }
+              }}
               required
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <PersonIcon color="primary" />
+                    <PersonIcon sx={{ color: '#06b6d4' }} />
                   </InputAdornment>
                 ),
               }}
@@ -157,12 +164,22 @@ export default function Login() {
               type="password"
               value={formData.password}
               onChange={handleChange}
-              sx={{ mb: 1 }}
+              sx={{ 
+                mb: 1,
+                '& .MuiOutlinedInput-root': {
+                  backgroundColor: 'rgba(15, 23, 42, 0.8)',
+                  '& fieldset': { borderColor: 'rgba(148, 163, 184, 0.3)' },
+                  '&:hover fieldset': { borderColor: '#06b6d4' },
+                  '&.Mui-focused fieldset': { borderColor: '#06b6d4' }
+                },
+                '& .MuiInputLabel-root': { color: '#94a3b8' },
+                '& .MuiInputBase-input': { color: 'white' }
+              }}
               required
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <LockIcon color="primary" />
+                    <LockIcon sx={{ color: '#06b6d4' }} />
                   </InputAdornment>
                 ),
               }}
@@ -175,7 +192,7 @@ export default function Login() {
                 <RouterLink
                   to="/forgot-password"
                   style={{
-                    color: '#dc2626',
+                    color: '#06b6d4',
                     textDecoration: 'none',
                     fontWeight: 500,
                     fontSize: 14,
@@ -231,10 +248,12 @@ export default function Login() {
                 borderRadius: 50,
                 fontWeight: 'bold',
                 fontSize: 16,
-                background: 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)',
+                background: 'linear-gradient(135deg, #06b6d4 0%, #0891b2 100%)',
+                border: '2px solid rgba(6, 182, 212, 0.3)',
                 '&:hover': {
                   transform: 'translateY(-2px)',
-                  boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
+                  boxShadow: '0 12px 30px rgba(6, 182, 212, 0.4)',
+                  borderColor: '#06b6d4'
                 },
                 transition: 'all 0.3s ease'
               }}
@@ -245,12 +264,12 @@ export default function Login() {
           </form>
           
           <Box textAlign="center" mt={3}>
-            <Typography variant="body2" color="textSecondary">
+            <Typography variant="body2" sx={{ color: '#94a3b8' }}>
               Don't have an account?{' '}
               <RouterLink
                 to="/signup"
                 style={{
-                  color: '#dc2626',
+                  color: '#06b6d4',
                   textDecoration: 'none',
                   fontWeight: 600,
                   marginLeft: 4,
